@@ -1,7 +1,7 @@
 ---
 
 - name: Gather facts and check device versions
-  hosts: network
+  hosts: all
   gather_facts: no
   
   tasks:
