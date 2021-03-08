@@ -1,0 +1,14 @@
+---
+
+- name: configure users
+  hosts: switches
+  gather_facts: no
+
+  tasks:
+    - name: Add a user specifying password type
+      cisco.ios.ios_user:
+        name: ansibletest1
+        configured_password: password1
+        password_type: password
+        privilege: 15
+

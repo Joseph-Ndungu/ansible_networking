@@ -1,0 +1,22 @@
+---
+
+- name: restore or replace configuration file
+  hosts: network
+  gather_facts: no
+
+  tasks:
+
+    - name: diff the running-config against a provided config
+      cisco.ios.ios_config:
+        diff_against: intended
+        intended_config: "{{ lookup('file', '/tmp/network-backups/{{ inventory_hostname}}-backup.cfg') }}"
+      register: conf_diff
+    - debug: 
+        var: conf_diff
+
+    - name: replace config with flat file
+      cisco.nxos.nxos_config:
+        replace_src: "{{ lookup('file', '/tmp/network-backups/{{ inventory_hostname}}-backup.cfg') }}"
+        replace: config
+        match: line
+

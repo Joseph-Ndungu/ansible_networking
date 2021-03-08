@@ -1,0 +1,14 @@
+---
+
+- name: Connecting to switches
+  hosts: network
+  gather_facts: no
+
+  tasks:
+    - name: Gather facts (ios)
+      cisco.iosxr.iosxr_facts:
+        gather_subset: all
+        gather_network_resources: all
+
+
+

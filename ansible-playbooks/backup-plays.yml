@@ -1,0 +1,23 @@
+---
+
+- name: backup configurations
+  hosts: network
+  gather_facts: no
+  tasks:
+    - name: backup switch (ios)
+      cisco.ios.ios_config:
+        backup: yes
+      register: backup_nxos_location
+      when: ansible_network_os == 'cisco.ios.ios'
+
+    - name: Create backup dir
+      file:
+        path: "/tmp/backups/{{ inventory_hostname }}"
+        state: directory
+        recurse: yes
+
+    - name: Copy backup files into /tmp/backups/ (ios)
+      copy:
+        src: "{{ backup_nxos_location.backup_path }}"
+        dest: "/tmp/backups/{{ inventory_hostname }}/{{ inventory_hostname }}.cfg"
+      when: ansible_network_os == 'cisco.ios.ios'

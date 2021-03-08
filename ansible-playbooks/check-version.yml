@@ -1,0 +1,24 @@
+---
+
+- name: Gather facts and check device versions
+  hosts: network
+  gather_facts: no
+  
+  tasks:
+    - name: run show version and check to see if output contains IOS
+      ios_command:
+        commands: show version
+        wait_for: result[0] contains IOS
+      register: myver
+
+    - debug:
+        var: myver
+
+    - name: Gather facts (ios)
+      cisco.ios.ios_facts:
+      when: ansible_network_os == 'cisco.ios.ios'
+      register: facts
+
+    - debug: 
+        var: facts
+

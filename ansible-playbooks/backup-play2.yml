@@ -1,0 +1,13 @@
+---
+
+- name: Back up directly to path
+  hosts: network
+  gather_facts: no
+
+  tasks:
+    - name: configurable backup
+      cisco.nxos.nxos_config:
+        backup: yes
+        backup_options:
+          filename: "{{ inventory_hostname }}-backup.cfg"
+          dir_path: /tmp/network-backups

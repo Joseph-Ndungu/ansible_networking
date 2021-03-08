@@ -1,0 +1,13 @@
+---
+
+- name: Connecting to switches
+  hosts: network
+  gather_facts: no
+
+  tasks:
+    - name: Gather facts (nxos)
+      cisco.nxos.nxos_facts:
+        gather_subset: all
+        gather_network_resources: all
+  
+

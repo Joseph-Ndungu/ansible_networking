@@ -1,0 +1,13 @@
+---
+
+- name: Connecting to switches
+  hosts: switches
+  gather_facts: no
+
+  tasks:
+    - name: Run Cisco command
+      cisco.nxos.nxos_command:
+        commands: show ip int br
+      register: var1
+    - debug: 
+        var: var1

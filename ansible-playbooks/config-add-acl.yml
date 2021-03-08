@@ -1,0 +1,16 @@
+---
+
+- name: add acl
+  hosts: network
+  gather_facts: no
+
+  tasks:
+
+    - name: add ACL
+      cisco.ios.ios_config:
+        lines:
+        - 130 permit 172.16.10.109 
+        - 120 permit 192.0.2.239
+        parents: ip access-list standard SSH-IN
+        before: no ip access-list standard SSH-IN
+        match: exact

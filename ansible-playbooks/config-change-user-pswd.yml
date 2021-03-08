@@ -1,0 +1,15 @@
+---
+
+
+- name: change existing user's password
+  hosts: switches
+  gather_facts: no
+  vars: 
+    new_password: passwd123
+  tasks: 
+    - name: Change Password for User ansibletest1
+      cisco.ios.ios_user:
+        name: ansibletest1
+        configured_password: '{{ new_password }}'
+        update_password: always
+        state: present
